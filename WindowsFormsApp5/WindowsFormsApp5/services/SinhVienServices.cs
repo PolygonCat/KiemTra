@@ -42,5 +42,36 @@ namespace WindowsFormsApp5.services
             }
             return null;
         }
+        public static void deleteSV(string id)
+        {
+            var db = new KiemTraContext();
+            db.SinhVien.Remove(db.SinhVien.Where(e => e.id == id).FirstOrDefault());
+            db.DiemVan.Remove(db.DiemVan.Where(e => e.id_sv == id).FirstOrDefault());
+            db.VatLy.Remove(db.VatLy.Where(e => e.id_sv == id).FirstOrDefault());
+            db.CNTT.Remove(db.CNTT.Where(e => e.id_sv == id).FirstOrDefault());
+            db.SaveChanges();
+        }
+        
+        public static void adddata(SinhVien sinhvien, DiemVan diemvan, VatLy vatly, CNTT cntt)
+        {
+            var db = new KiemTraContext();
+            db.SinhVien.Add(sinhvien);
+            db.SaveChanges();
+            if (diemvan != null)
+            {
+                db.DiemVan.Add(diemvan);
+                db.SaveChanges();
+            }
+            if (vatly != null)
+            {
+                db.VatLy.Add(vatly);
+                db.SaveChanges();
+            }
+            if (cntt != null)
+            {
+                db.CNTT.Add(cntt);
+                db.SaveChanges();
+            }
+        }
     }
 }

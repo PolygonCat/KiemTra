@@ -14,7 +14,7 @@
 
         protected override void Seed(WindowsFormsApp5.model.KiemTraContext context)
         {
-            for (int i = 100; i < 200; i++)
+            for (int i = 1; i < 10; i++)
             {
                 context.SinhVien.AddOrUpdate(new model.SinhVien
                 {

@@ -77,7 +77,7 @@ namespace WindowsFormsApp5
             radioButton1.Checked = sinhvienCurrent.gioitinh == true ? true : false;
             dateTimePicker1.Value = sinhvienCurrent.ngaysinh;
             textBox10.Text = SinhVienServices.getDiemVan(sinhvienCurrent.id).vanhoccd;
-            textBox9.Text = SinhVienServices.getDiemVan(sinhvienCurrent.id).vanhoccd;
+            textBox9.Text = SinhVienServices.getDiemVan(sinhvienCurrent.id).vanhochd;
             textBox7.Text = SinhVienServices.getVatLy(sinhvienCurrent.id).cohoc;
             textBox6.Text = SinhVienServices.getVatLy(sinhvienCurrent.id).quanghoc;
             textBox5.Text = SinhVienServices.getVatLy(sinhvienCurrent.id).vlhatnhan;
@@ -95,6 +95,34 @@ namespace WindowsFormsApp5
         private void radioButton1_Click(object sender, EventArgs e)
         {
             radioButton1.Checked = radioButton1.Checked == true ? false : true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var cellcurent = bindingSource1.Current as SinhVien;
+            var resultDialog = MessageBox.Show(
+                    "Bạn có thực sự muốn xóa?",
+                    "Thông báo",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Warning);
+            if (resultDialog == DialogResult.OK)
+            {
+                //Viết code xóa dữ liệu ở đây --> Bài tập về nhà ngày 12/10/2019
+                SinhVienServices.deleteSV(cellcurent.id);
+                bindingSource1.RemoveCurrent();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var f = new Form2();
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                var listsv = SinhVienServices.getAll();
+                dataGridView1.AutoGenerateColumns = false;
+                bindingSource1.DataSource = listsv;
+                dataGridView1.DataSource = bindingSource1;
+            }
         }
     }
 }
